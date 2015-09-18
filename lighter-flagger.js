@@ -36,16 +36,14 @@ module.exports = Emitter.extend({
    */
   when: function (flag, value, fn) {
     var self = this
-    var flags = self._flags
+    var flags = self._flags || 0
     if (arguments.length < 3) {
       fn = value
       value = true
     }
-    if (flags) {
-      if (flags[flag] === value) {
-        fn.apply(self)
-        return self
-      }
+    if (flags[flag] === value) {
+      fn.call(self, value)
+      return self
     }
     self.on(flag + ':' + value, fn)
     return self

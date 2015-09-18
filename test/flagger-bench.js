@@ -1,5 +1,5 @@
 var fs = require('fs')
-var flagger = require(__dirname + '/lighter-flagger')
+var flagger = require('../lighter-flagger')
 
 describe('Benchmarks', function () {
 
