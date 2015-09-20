@@ -6,7 +6,7 @@
     "lighter-emitter": ">=0.0.1"
   },
   "devDependencies": {
-    "exam": ">=0.3.5"
+    "exam": ">=0.3.8"
   },
   "keywords": [
     "lighter",
@@ -16,7 +16,7 @@
   ],
   "main": "lighter-flagger.js",
   "engines": {
-    "node": ">=0.2.6"
+    "node": ">=0.8.28"
   },
   "scripts": {
     "test": "./node_modules/exam/exam.js",

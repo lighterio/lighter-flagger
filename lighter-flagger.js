@@ -8,6 +8,11 @@ var Emitter = require('lighter-emitter')
 module.exports = Emitter.extend({
 
   /**
+   * Empty constructor (for speed).
+   */
+  init: function () {},
+
+  /**
    * Get the value of a flag.
    */
   getFlag: function (flag) {
@@ -18,35 +23,32 @@ module.exports = Emitter.extend({
    * Set a flag, like "ready" and emit its value.
    */
   setFlag: function (flag, value) {
-    var self = this
-    var flags = self._flags || (self._flags = {})
+    var flags = this._flags || (this._flags = {})
     if (arguments.length < 2) {
       value = true
     }
     if (flags[flag] !== value) {
       flags[flag] = value
-      self.emit(flag, value)
-      self.emit(flag + ':' + value)
+      this.emit(flag, value)
+      this.emit(flag + ':' + value)
     }
-    return self
+    return this
   },
 
   /**
    * Fire an event when a flag is set (even if it was set in the past).
    */
   when: function (flag, value, fn) {
-    var self = this
-    var flags = self._flags || 0
-    if (arguments.length < 3) {
+    var flags = this._flags || 0
+    if (typeof value === 'function') {
       fn = value
       value = true
     }
     if (flags[flag] === value) {
-      fn.call(self, value)
-      return self
+      fn.call(this, value)
     }
-    self.on(flag + ':' + value, fn)
-    return self
+    this.on(flag + ':' + value, fn)
+    return this
   }
 
 })
