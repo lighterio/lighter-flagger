@@ -11,16 +11,25 @@ module.exports = Emitter.extend({
   /**
    * Set up an emitter with flags.
    */
-  init: function Flagger () {
+  init: function Flagger (waitParent) {
     Emitter.call(this)
     this._flags = {}
+    this._waitCount = 0
+    this._waitParents = []
+    this._waitChildren = 0
+    if (waitParent) {
+      if (!waitParent.waitFor) {
+        this.constructor.init(waitParent)
+      }
+      waitParent.waitFor(this)
+    }
   },
 
   /**
    * Get the value of a flag.
    *
    * @param  {String} flag  A flag name.
-   * @return {Object}       The value of the flag.
+   * @return {Any}          The value of the flag.
    */
   get: function get (flag) {
     return this._flags[flag]
@@ -30,8 +39,8 @@ module.exports = Emitter.extend({
    * Set a flag, and emit its value.
    *
    * @param  {String} flag    A flag name.
-   * @param  {Object} value   A flag value.
-   * @return {Object}         The value of the flag.
+   * @param  {Any}    value   A flag value.
+   * @return {Any}            The value of the flag.
    */
   set: function set (flag, value) {
     if (arguments.length < 2) {
@@ -53,7 +62,7 @@ module.exports = Emitter.extend({
    * immediately if the flag is already set to that value.
    *
    * @param  {String}   flag   A flag name.
-   * @param  {Object}   value  A value to listen for (default: `true`).
+   * @param  {Any}      value  A value to listen for (default: `true`).
    * @param  {Function} fn     A function to call with `fn(value)`.
    * @return {Flagger}         Itself.
    */
@@ -77,7 +86,7 @@ module.exports = Emitter.extend({
    * current time if the flag is already set to that value.
    *
    * @param  {String}   flag   A flag name.
-   * @param  {Object}   value  A value to listen for (default: `true`).
+   * @param  {Any}      value  A value to listen for (default: `true`).
    * @param  {Function} fn     A function to call with `fn(value)`.
    * @return {Flagger}         Itself.
    */
@@ -95,6 +104,62 @@ module.exports = Emitter.extend({
       this.once(flag + '==' + value, fn)
     }
     return this
-  }
+  },
 
+  /**
+   * Increment the number of waiting operations in progress.
+   */
+  wait: function (count) {
+    count = count || 1
+    var parents = this._waitParents
+    for (var i = 0, l = parents.length; i < l; i++) {
+      var parent = parents[i]
+      parent.wait(count)
+    }
+    this._waitCount += count
+    this.set('ready', false)
+  },
+
+  /**
+   * Decrement the number of waiting operations in progress.
+   * If no operations are in progress, run the next queued action.
+   */
+  unwait: function (count) {
+    count = count || 1
+    this._waitCount -= count
+    if (!this._waitCount) {
+      this.set('ready', true)
+    }
+    var parents = this._waitParents
+    for (var i = 0, l = parents.length; i < l; i++) {
+      var parent = parents[i]
+      parent.unwait(count)
+    }
+  },
+
+  /**
+   * Wait for a child Flagger.
+   */
+  waitFor: function (child) {
+    child._waitParents.push(this)
+    if (child._waitCount) {
+      this.wait(child._waitCount)
+    }
+  },
+
+  /**
+   * Add a function to the queue of runnable actions (without duplication).
+   * If we're not waiting for something, run the function now.
+   */
+  ready: function (fn) {
+    return this.when('ready', fn)
+  },
+
+  /**
+   * Add a function to the queue of runnable actions (without duplication).
+   * If we're not waiting for something, run the function now.
+   */
+  then: function (fn) {
+    return this.at('ready', fn)
+  }
 })
