@@ -2,7 +2,7 @@
 /* global describe it */
 
 var Flagger = require('../lighter-flagger')
-var is = global.is || require('exam/lib/is')
+var is = global.is || require('exam-is')
 
 describe('Flagger.prototype.get', function () {
   it('returns undefined when flags haven\'t been set', function () {

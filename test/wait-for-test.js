@@ -2,7 +2,7 @@
 /* global describe it */
 
 var Flagger = require('../lighter-flagger')
-var is = global.is || require('exam/lib/is')
+var is = global.is || require('exam-is')
 
 describe('Flagger.prototype.waitFor', function () {
   it('adds the child count', function () {

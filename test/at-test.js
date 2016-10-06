@@ -2,8 +2,8 @@
 /* global describe it */
 
 var Flagger = require('../lighter-flagger')
-var is = global.is || require('exam/lib/is')
-var mock = global.mock || require('exam/lib/mock')
+var is = global.is || require('exam-is')
+var mock = global.mock || require('exam-mock')
 
 describe('Flagger.prototype.at', function () {
   it('runs a function when a flag becomes true', function () {

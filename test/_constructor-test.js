@@ -2,7 +2,7 @@
 /* global describe it */
 
 var Flagger = require('../lighter-flagger')
-var is = global.is || require('exam/lib/is')
+var is = global.is || require('exam-is')
 
 describe('Flagger', function () {
   it('has all expected methods', function () {
@@ -22,13 +22,14 @@ describe('Flagger', function () {
     is.function(f.ready)
   })
 
-  it('ensures that parents have expected methods', function () {
+  it('ensures that parents have expected methods', function (done) {
     var p = {}
-    new Flagger(p)
+    var c = new Flagger(p)
     is.function(p.wait)
     is.function(p.unwait)
     is.function(p.waitFor)
-    p.wait()
-    p.unwait()
+    p.ready(done)
+    c.wait()
+    c.unwait()
   })
 })
