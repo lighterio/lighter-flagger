@@ -37,15 +37,6 @@ Flagger.prototype.waitFor
 Flagger.prototype.wait
 Flagger.prototype.when
 
-### Flagger.prototype.on
-See [Emitter.prototype.on]
-
-### Flagger.prototype.on
-### Flagger.prototype.on
-### Flagger.prototype.on
-### Flagger.prototype.on
-### Flagger.prototype.on
-
 ## More on lighter-flagger...
 * [Contributing](//github.com/lighterio/lighter-flagger/blob/master/CONTRIBUTING.md)
 * [License (ISC)](//github.com/lighterio/lighter-flagger/blob/master/LICENSE.md)
