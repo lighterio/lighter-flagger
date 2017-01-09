@@ -1,5 +1,8 @@
 # lighter-flagger Change Log
 
+## v1.2.1 - 2017-01-09
+* **patch** Standardized extend usage.
+
 ## v1.2.0 - 2017-01-08
 * **minor** Added `_settingReady` to prevent recursive ready emits.
 

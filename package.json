@@ -1,9 +1,9 @@
 {
   "name": "lighter-flagger",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A lightweight JavaScript event emitter with flags.",
   "dependencies": {
-    "lighter-emitter": ">=1.2.1 <2"
+    "lighter-emitter": "^1.2.1"
   },
   "devDependencies": {
     "exam": "^1.4.5"
