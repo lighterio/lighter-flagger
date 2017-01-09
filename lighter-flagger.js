@@ -14,7 +14,7 @@ module.exports = Emitter.extend({
    * When used with the `new` keyword, the `Flagger` constructor creates an
    * event emitter with flags. In addition, `Flagger` extends `Emitter`, which
    * extends `Type`, so it inherits constructor and prototype methods from:
-   * * [lighter-stream](https://github.com/lighterio/lighter-stream) and
+   * * [lighter-type](https://github.com/lighterio/lighter-type) and
    * * [lighter-emitter](https://github.com/lighterio/lighter-emitter)
    *
    * Example:
@@ -43,6 +43,7 @@ module.exports = Emitter.extend({
     this._flags = {}
     this._waitCount = 0
     this._waitParents = []
+    this._settingReady = false
     if (waitParent) {
       if (!waitParent.waitFor) {
         this.constructor.init(waitParent)
@@ -151,7 +152,9 @@ module.exports = Emitter.extend({
       parent.wait(count)
     }
     this._waitCount += count
-    this.set('ready', false)
+    if (!this._settingReady) {
+      this.set('ready', false)
+    }
     return this
   },
 
@@ -167,7 +170,9 @@ module.exports = Emitter.extend({
     count = count || 1
     this._waitCount -= count
     if (!this._waitCount) {
+      this._settingReady = true
       this.set('ready', true)
+      this._settingReady = false
     }
     var parents = this._waitParents
     for (var i = 0, l = parents.length; i < l; i++) {

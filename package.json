@@ -1,12 +1,12 @@
 {
   "name": "lighter-flagger",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A lightweight JavaScript event emitter with flags.",
   "dependencies": {
     "lighter-emitter": ">=1.2.1 <2"
   },
   "devDependencies": {
-    "exam": ">=1.4.3 <2"
+    "exam": "^1.4.5"
   },
   "keywords": [
     "utility",
@@ -26,7 +26,6 @@
     "test": "./node_modules/exam/exam.js",
     "cover": "./node_modules/exam/exam-cover.js",
     "report": "open coverage/lcov-report/index.html",
-    "coveralls": "./node_modules/exam/exam-coveralls.js",
     "bench": "./node_modules/exam/exam.js test/bench"
   },
   "repository": "https://github.com/lighterio/lighter-flagger.git",
@@ -36,5 +35,5 @@
   "contributors": [
     "Sam Eubank <sameubank@gmail.com>"
   ],
-  "license": "ISC"
+  "license": "MIT"
 }

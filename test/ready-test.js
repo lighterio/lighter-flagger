@@ -17,4 +17,21 @@ describe('Flagger.prototype.ready', function () {
     f.unwait()
     is(r.value, 2)
   })
+
+  it('doesn\'t set ready recursively', function () {
+    var f = new Flagger()
+    var w = function () {
+      this.wait()
+      this.unwait()
+    }
+    var r = mock.count()
+    f.ready(r)
+    f.ready(w)
+    f.wait()
+    f.unwait()
+    is(r.value, 1)
+    f.wait()
+    f.unwait()
+    is(r.value, 2)
+  })
 })

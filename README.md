@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/npm/v/lighter-flagger.svg)](//www.npmjs.com/package/lighter-flagger)
 [![Downloads](https://img.shields.io/npm/dm/lighter-flagger.svg)](//www.npmjs.com/package/lighter-flagger)
 [![Build](https://img.shields.io/travis/lighterio/lighter-flagger.svg)](//travis-ci.org/lighterio/lighter-flagger)
-[![Coverage](https://img.shields.io/coveralls/lighterio/lighter-flagger/master.svg)](//coveralls.io/r/lighterio/lighter-flagger)
+[![Coverage](https://img.shields.io/codecov/c/github/lighterio/lighter-flagger/master.svg)](//codecov.io/gh/lighterio/lighter-flagger)
 [![Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](//www.npmjs.com/package/standard)
 
 The `lighter-flagger` module is a lightweight event emitter with flags which
@@ -20,8 +20,8 @@ npm install --save lighter-flagger
 ## API
 
 The `lighter-flagger` module exports a constructor that extends the Emitter
-constructor from [`lighter-emitter`](//www.npmjs.com/package/lighter-stream)
-which extends [`lighter-stream`](//www.npmjs.com/package/lighter-stream). When
+constructor from [`lighter-emitter`](//www.npmjs.com/package/lighter-emitter)
+which extends [`lighter-type`](//www.npmjs.com/package/lighter-type). When
 a Type (such as **Flagger**) is uppercased in documentation, it refers to the
 constructor or its constructor properties. And when a type is lowercased (such
 as **flagger**), it refers to an instance and its prototype properties.
